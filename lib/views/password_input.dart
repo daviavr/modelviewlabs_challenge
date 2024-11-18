@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modelviewlabs_challenge/bloc/generate_password.dart';
 import 'package:modelviewlabs_challenge/views/password_result.dart';
 
 import '../bloc/password_bloc.dart';
@@ -40,6 +41,21 @@ class PasswordInputScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      _passwordController.text = 
+                      if (password.isNotEmpty) {
+                        BlocProvider.of<GeneratePasswordBloc>(context)
+                            .add(GeneratePasswordEvent());
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('Senha nao pode estar vazia')),
+                        );
+                      }
+                    },
+                    child: const Text('Validar senha'),
+                  ),
                   ElevatedButton(
                     onPressed: () {
                       final password = _passwordController.text.trim();
